@@ -1,0 +1,59 @@
+﻿@page
+@model WebApplication1.Pages.TestPages.EditPageModel
+@{
+}
+
+<form method="post" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="CreateEmployee.Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CreateEmployee.Name" class="form-control" />
+            <span asp-validation-for="CreateEmployee.Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateEmployee.DateOfBirth" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CreateEmployee.DateOfBirth" class="form-control" type="date" />
+            <span asp-validation-for="CreateEmployee.DateOfBirth" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateEmployee.Description" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CreateEmployee.Description" class="form-control" />
+            <span asp-validation-for="CreateEmployee.Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CreateEmployee.Department" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+
+            <input asp-for=CreateEmployee.Department class="form-control" list="Departments" placeholder="Department">
+            <datalist id="Departments">
+                @foreach (var departament in Model.Departaments)
+                {
+                    <option value="@departament.Name" />
+                }
+            </datalist>
+            <span asp-validation-for="CreateEmployee.Department" class="text-danger"></span>
+        </div>
+    </div>
+    <label asp-for="CreateEmployee.Supervisor" class="col-md-2 control-label"></label>
+    <div class="col-md-10">
+
+        <input asp-for=CreateEmployee.Supervisor class="form-control" list="Employees" placeholder="Supervisor">
+        <datalist id="Employees">
+            @foreach (var employee in Model.Employees)
+            {
+                <option value="@employee.Name" />
+            }
+        </datalist>
+        <span asp-validation-for="CreateEmployee.Supervisor" class="text-danger"></span>
+    </div>
+
+    @Html.ValidationSummary()
+    <button type="submit" class="btn btn-success" >Edit</button>
+    <button asp-page-handler="Delete" asp-route-id="@Model.CreateEmployee.EmployeeId" class="btn btn-danger" onclick="@Model.OnPostDeleteAsync">Delete</button>
+    </form>
+
